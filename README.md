@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Welcome to the Deeplify Backend project of Fatih HAZIR. This project is a FastAPI-based backend service designed to handle image classification tasks. It features robust exception handling, a JSON-based fixed response structure, and can be easily extended to include token-based authentication for secure access. The backend is structured to provide clear and consistent responses, ensuring a smooth integration with frontend applications.
+Welcome to the Deeplify Backend project of Fatih HAZIR. This project is a FastAPI-based backend service designed to handle image classification tasks. It features robust exception handling including end-point check, file type check, a JSON-based fixed response structure, and can be easily extended to include token-based authentication for secure access. The backend is structured to provide clear and consistent responses, ensuring a smooth integration with frontend applications.
 
-## Setup
+## Setup (Without docker, dockerized version below)
 
 1. **Create a virtual environment:**
    ```bash
@@ -34,6 +34,25 @@ Welcome to the Deeplify Backend project of Fatih HAZIR. This project is a FastAP
 
 5. **Endpoints:**
    POST /api/v1/classify-image: Accepts an image file and returns a classification label.
+
+
+## Setup (With docker)
+- Make sure docker is running
+
+1. **Build the docker image:**
+   ```bash
+   docker build -t deeplify-backend .
+
+2. **run the container:**
+   ```bash
+   docker run -d -p 8000:8000 deeplify-backend
+
+3. **Verify the Setup:**
+   After running the Docker container, you can verify the setup by accessing the FastAPI application at http://localhost:8000.
+
+
+4. **Endpoints:**
+   POST /api/v1/classify-image: Accepts an image file and returns related response.
 
 
 ## Testing
