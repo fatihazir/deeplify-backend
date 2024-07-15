@@ -1,7 +1,7 @@
-from fastapi import Request, status, HTTPException
+from fastapi import Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from app.schemas.results import ErrorResult
+from app.schemas.responses import ErrorResult
 from app.schemas.image_data_response import ImageClassificationResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 

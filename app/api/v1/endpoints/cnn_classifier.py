@@ -1,8 +1,6 @@
 from fastapi import APIRouter, HTTPException, File, UploadFile, Depends
-from fastapi.responses import JSONResponse
 from random import choice
-from app.schemas.image_data_response import ImageClassificationResponse, ImageClassificationData
-from app.schemas.results import SuccessDataResult, ErrorResult
+from app.schemas.image_data_response import ImageClassificationResponse, ImageClassificationData, create_error_response, create_success_response
 from app.dependencies import verify_token
 
 router = APIRouter()
@@ -22,27 +20,13 @@ async def classify_image(file: UploadFile = File(...)):
             file_size_in_bytes=file_size_in_bytes
         )
 
-        success_response = SuccessDataResult(data=data, message="Image classified successfully")
-
-        return ImageClassificationResponse(
-            success=success_response.success,
-            message=success_response.message,
-            data=success_response.data
-        )
+        return create_success_response(data, "Image classified successfully")
     
     except HTTPException as e:
-        error_response = ErrorResult(message=str(e))
-        return ImageClassificationResponse(
-            success=error_response.success,
-            message=error_response.message
-        )
+        return create_error_response(str(e))
     
     except Exception as e:
-        error_response = ErrorResult(message=str(e))
-        return ImageClassificationResponse(
-            success=error_response.success,
-            message=error_response.message
-        )
+        return create_error_response(str(e))
      
     
     
