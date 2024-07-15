@@ -24,3 +24,27 @@ def test_classify_image_no_file():
     json_response = response.json()
     assert json_response["success"] == False
     assert "Validation Error" in json_response["message"]
+
+def test_classify_image_invalid_file_type():
+    # Simulate an invalid file type upload
+    with open("tests/fakefile.txt", "wb") as f:
+        f.write(b"This is a test.")
+    with open("tests/fakefile.txt", "rb") as file:
+        response = client.post(
+            "/api/v1/classify-image",
+            files={"file": file}
+        )
+    assert response.status_code == 200
+    json_response = response.json()
+    assert json_response["success"] == False
+    assert json_response["message"] == "Invalid file type. Only image files are allowed."
+
+def test_classify_multiple_files():
+    # Simulate multiple file upload
+    with open("tests/elmır.jpg", "rb") as image, open("tests/fakefile.txt", "rb") as fake_file:
+        response = client.post(
+            "/api/v1/classify-image",
+            files={"file1": ("elmır.jpg", image), "file2": ("fakefile.txt", fake_file)}
+        )
+    json_response = response.json()
+    assert json_response["success"] == False

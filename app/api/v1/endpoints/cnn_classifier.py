@@ -9,6 +9,10 @@ router = APIRouter()
              #, dependencies=[Depends(verify_token)]
              )
 async def classify_image(file: UploadFile = File(...)):
+    ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/jpg"]
+    if file.content_type not in ALLOWED_IMAGE_TYPES:
+        return create_error_response("Invalid file type. Only image files are allowed.")
+     
     try:
         random_classification = choice(["OK", "NOK"])
         file_name = file.filename
