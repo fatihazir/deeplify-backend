@@ -30,8 +30,6 @@ Welcome to the Deeplify Backend project of Fatih HAZIR. This project is a FastAP
    ```bash
    uvicorn app.main:app --reload
 
-   After running, it should look like this   
-
 5. **Endpoints:**
    POST /api/v1/classify-image: Accepts an image file and returns a classification label.
 
